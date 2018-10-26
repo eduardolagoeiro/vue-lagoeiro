@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat to="/">Home</v-btn>
-        <v-btn flat to="/people">Pessoas</v-btn>
+        <v-btn flat :to="{path:'/people', name:'people'}">Pessoas</v-btn>
         <v-btn flat>História</v-btn>
         <v-btn flat>Curiosidades</v-btn>
       </v-toolbar-items>
@@ -20,12 +20,11 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   data () {
     return {
-      //
+      defaultId: 1
     }
   }
 }
