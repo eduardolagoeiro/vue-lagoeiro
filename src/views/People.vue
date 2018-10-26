@@ -12,12 +12,14 @@
       label="Quem você está procurando?"
       no-data-text="Digite o nome de quem você procura"
     ></v-autocomplete>
-    <h1 v-show="select">People {{select}}</h1>
+    <Person v-show="select" :person="person" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Person from '../components/Person.vue'
+import personData from './person.json'
 
 export default {
   data () {
@@ -26,7 +28,8 @@ export default {
       loading: false,
       select: null,
       search: null,
-      people: []
+      people: [],
+      person: personData
     }
   },
   watch: {
@@ -35,12 +38,13 @@ export default {
       if (this.loading) return
       this.loading = true
       return axios.get('http://www.mocky.io/v2/5bd355103400006236cfe127')
-        .then(res => {
-          this.people = res.data
-        })
+        .then(res => (this.people = res.data))
         .catch(err => console.log(err))
         .finally(() => (this.loading = false))
     }
+  },
+  components: {
+    Person
   }
 }
 </script>
