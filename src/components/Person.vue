@@ -9,12 +9,12 @@
             <span class="headline">{{person.father.name}}</span>
           </v-img>
           <v-img @click="changePeople(person.fatherId)" v-else-if="person && person.father"
-            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            :src="placeholderImage"
           >
             <span class="headline">{{person.father.name}}</span>
           </v-img>
           <v-img v-else
-            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            :src="placeholderImage"
           />
 
         </v-card>
@@ -27,12 +27,12 @@
               <span class="headline">{{person.mother.name}}</span>
             </v-img>
             <v-img @click="changePeople(person.motherId)" v-else-if="person && person.mother"
-              src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+              :src="placeholderImage"
             >
               <span class="headline">{{person.mother.name}}</span>
             </v-img>
             <v-img v-else
-            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            :src="placeholderImage"
           />
           </v-card>
       </v-flex>
@@ -46,12 +46,12 @@
             <span class="headline">{{person.name}}</span>
           </v-img>
           <v-img @click="expandPerson(person.id)" v-else-if="person"
-            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            :src="placeholderImage"
           >
             <span class="headline">{{person.name}}</span>
           </v-img>
           <v-img v-else
-            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            :src="placeholderImage"
           />
 
         </v-card>
@@ -66,12 +66,12 @@
                 <span class="headline">{{spouse.name}}</span>
               </v-img>
               <v-img @click="changePeople(spouse.id)" v-else-if="spouse"
-                src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+                :src="placeholderImage"
               >
                 <span class="headline">{{spouse.name}}</span>
               </v-img>
               <v-img v-else
-                src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+                :src="placeholderImage"
               />
             </v-card>
           </v-flex>
@@ -87,12 +87,12 @@
             <span class="headline">{{children.name}}</span>
           </v-img>
           <v-img @click="changePeople(children.id)" v-else-if="children"
-              src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+              :src="placeholderImage"
           >
             <span class="headline">{{children.name}}</span>
           </v-img>
           <v-img v-else
-            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            :src="placeholderImage"
           />
         </v-card>
       </v-flex>
@@ -101,8 +101,14 @@
 </template>
 
 <script>
+import placeholderImage from '../assets/placeholder_image.gif'
 export default {
   props: ['person'],
+  data () {
+    return {
+      placeholderImage
+    }
+  },
   computed: {
     child () {
       if (!this.person) return []
