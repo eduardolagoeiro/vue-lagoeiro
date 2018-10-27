@@ -3,55 +3,97 @@
     <v-layout align-center justify-center row fill-height>
       <v-flex xs6 sm3>
         <v-card>
-          <v-img
+          <v-img @click="changePeople(person.fatherId)" v-if="person && person.father && person.father.photo"
             :src="person.father.photo"
           >
             <span class="headline">{{person.father.name}}</span>
           </v-img>
+          <v-img @click="changePeople(person.fatherId)" v-else-if="person && person.father"
+            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          >
+            <span class="headline">{{person.father.name}}</span>
+          </v-img>
+          <v-img v-else
+            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          />
+
         </v-card>
       </v-flex>
       <v-flex xs6 sm3>
         <v-card>
-            <v-img
+            <v-img @click="changePeople(person.motherId)" v-if="person && person.mother && person.mother.photo"
               :src="person.mother.photo"
             >
               <span class="headline">{{person.mother.name}}</span>
             </v-img>
+            <v-img @click="changePeople(person.motherId)" v-else-if="person && person.mother"
+              src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+            >
+              <span class="headline">{{person.mother.name}}</span>
+            </v-img>
+            <v-img v-else
+            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          />
           </v-card>
       </v-flex>
     </v-layout>
     <v-layout align-center justify-center row >
       <v-flex xs8 sm4>
         <v-card>
-          <v-img
+          <v-img @click="expandPerson(person.id)" v-if="person && person.photo"
             :src="person.photo"
           >
             <span class="headline">{{person.name}}</span>
           </v-img>
+          <v-img @click="expandPerson(person.id)" v-else-if="person"
+            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          >
+            <span class="headline">{{person.name}}</span>
+          </v-img>
+          <v-img v-else
+            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          />
+
         </v-card>
       </v-flex>
-      <v-flex xs4 sm2>
+      <v-flex xs4 sm2 v-if="spouses.length > 0">
         <v-layout column style="overflow: scroll; max-height: 220px;">
-          <v-flex v-for="(spouse, index) in person.spouses" :key="index">
+          <v-flex v-for="(spouse, index) in spouses" :key="index">
             <v-card>
-              <v-img
+              <v-img @click="changePeople(spouse.id)" v-if="spouse && spouse.photo"
                 :src="spouse.photo"
               >
                 <span class="headline">{{spouse.name}}</span>
               </v-img>
+              <v-img @click="changePeople(spouse.id)" v-else-if="spouse"
+                src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+              >
+                <span class="headline">{{spouse.name}}</span>
+              </v-img>
+              <v-img v-else
+                src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+              />
             </v-card>
           </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
     <v-layout row wrap align-center justify-center fill-height>
-      <v-flex xs5 sm2 v-for="(children, index) in person.child" :key="index">
+      <v-flex xs5 sm2 v-for="(children, index) in child" :key="index">
         <v-card>
-          <v-img
+          <v-img @click="changePeople(children.id)" v-if="children && children.photo"
               :src="children.photo"
-            >
-              <span class="headline">{{children.name}}</span>
-            </v-img>
+          >
+            <span class="headline">{{children.name}}</span>
+          </v-img>
+          <v-img @click="changePeople(children.id)" v-else-if="children"
+              src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          >
+            <span class="headline">{{children.name}}</span>
+          </v-img>
+          <v-img v-else
+            src="http://www.smileodonto.com.br/upload/news/aca66329263f818ccf0c38048f2f28f7.gif"
+          />
         </v-card>
       </v-flex>
     </v-layout>
@@ -60,6 +102,36 @@
 
 <script>
 export default {
-  props: ['person']
+  props: ['person'],
+  computed: {
+    child () {
+      if (!this.person) return []
+      if (this.person.sex) return this.person.fatherChild
+      return this.person.motherChild
+    },
+    spouses () {
+      if (!this.person) return []
+      let spouseAtt = 'father'
+      if (this.person.sex) {
+        spouseAtt = 'mother'
+      }
+      if (!(this.child && this.child.length > 0)) return []
+      const spouses = []
+      this.child.map(children => {
+        const finded = spouses.find(spouse => spouse.id === children[spouseAtt + 'Id'])
+        if (finded !== undefined) return
+        spouses.push(children[spouseAtt])
+      })
+      return spouses
+    }
+  },
+  methods: {
+    changePeople (id) {
+      return this.$store.dispatch('getPerson', { id })
+    },
+    expandPerson (id) {
+      console.log('exapnd person', id)
+    }
+  }
 }
 </script>
