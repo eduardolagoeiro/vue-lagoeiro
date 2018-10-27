@@ -10,5 +10,5 @@ app.get(/.*/, (req, res) => {
 app.listen(port, err => {
   if (err) console.log(err)
   console.log(`listen to port ${port}...`)
-  console.log(`api is setted to ${baseURL}...`)
+  console.log(`api is setted to ${baseURL}`)
 })

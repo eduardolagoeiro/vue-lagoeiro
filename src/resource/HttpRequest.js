@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-let axiosInstance = axios.create({
-  baseURL: process.env.API_BASE_URL || 'http://localhost:3000/api',
+const axiosInstance = axios.create({
+  baseURL: process.env.VUE_APP_API || 'http://localhost:3000/api',
   timeout: 120000
 })
 
