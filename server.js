@@ -1,5 +1,5 @@
 const express = require('express')
-const port = process.env.port || 8080
+const port = process.env.PORT || 8080
 const baseURL = process.env.API_BASE_URL || 'http://localhost:3000/api'
 const app = express()
 const path = require('path')
