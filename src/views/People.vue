@@ -1,9 +1,10 @@
 <template>
   <div class="about">
     <v-autocomplete
-      :loading="loading"
+      :loading="!people && select"
       :items="people"
       :search-input.sync="search"
+      @input="selectPerson"
       item-text="name"
       item-value="id"
       v-model="select"
@@ -12,35 +13,38 @@
       label="Quem você está procurando?"
       no-data-text="Digite o nome de quem você procura"
     ></v-autocomplete>
-    <Person v-show="select" :person="person" />
+    <Person v-if="select" :person="person" />
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import Person from '../components/Person.vue'
-import personData from './person.json'
 
 export default {
   data () {
     return {
       id: this.$route.params.id,
-      loading: false,
       select: null,
-      search: null,
-      people: [],
-      person: personData
+      search: null
+    }
+  },
+  computed: {
+    person () {
+      return this.$store.state.person
+    },
+    people () {
+      return this.$store.state.people
+    }
+  },
+  methods: {
+    selectPerson (personId) {
+      return this.$store.dispatch('getPerson', { id: personId })
     }
   },
   watch: {
     search (val) {
-      if (this.people.length > 0) return
-      if (this.loading) return
-      this.loading = true
-      return axios.get('http://www.mocky.io/v2/5bd355103400006236cfe127')
-        .then(res => (this.people = res.data))
-        .catch(err => console.log(err))
-        .finally(() => (this.loading = false))
+      if (this.people && this.people.length > 0) return
+      this.$store.dispatch('getPeopleName', {})
     }
   },
   components: {
