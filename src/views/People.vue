@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <v-autocomplete
-      :loading="!people && select"
+      :loading="(!people && select) || personLoading"
       :items="people"
       :search-input.sync="search"
       @input="selectPerson"
@@ -29,6 +29,9 @@ export default {
     }
   },
   computed: {
+    personLoading () {
+      return this.$store.state.personLoading
+    },
     person () {
       return this.$store.state.person
     },

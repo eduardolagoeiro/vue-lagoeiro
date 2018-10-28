@@ -3,12 +3,12 @@
     <v-layout align-center justify-center row fill-height>
       <v-flex xs6 sm3>
         <v-card>
-          <v-img @click="changePeople(person.fatherId)" v-if="person && person.father && person.father.photo"
+          <v-img @click="changePeople(person.fatherId)" v-if="!isLoading && person && person.father && person.father.photo"
             :src="person.father.photo"
           >
             <span class="headline">{{person.father.name}}</span>
           </v-img>
-          <v-img @click="changePeople(person.fatherId)" v-else-if="person && person.father"
+          <v-img @click="changePeople(person.fatherId)" v-else-if="!isLoading && person && person.father"
             :src="placeholderImage"
           >
             <span class="headline">{{person.father.name}}</span>
@@ -21,12 +21,12 @@
       </v-flex>
       <v-flex xs6 sm3>
         <v-card>
-            <v-img @click="changePeople(person.motherId)" v-if="person && person.mother && person.mother.photo"
+            <v-img @click="changePeople(person.motherId)" v-if="!isLoading && person && person.mother && person.mother.photo"
               :src="person.mother.photo"
             >
               <span class="headline">{{person.mother.name}}</span>
             </v-img>
-            <v-img @click="changePeople(person.motherId)" v-else-if="person && person.mother"
+            <v-img @click="changePeople(person.motherId)" v-else-if="!isLoading && person && person.mother"
               :src="placeholderImage"
             >
               <span class="headline">{{person.mother.name}}</span>
@@ -40,12 +40,12 @@
     <v-layout align-center justify-center row >
       <v-flex xs8 sm4>
         <v-card>
-          <v-img @click="expandPerson(person.id)" v-if="person && person.photo"
+          <v-img @click="expandPerson(person.id)" v-if="!isLoading && person && person.photo"
             :src="person.photo"
           >
             <span class="headline">{{person.name}}</span>
           </v-img>
-          <v-img @click="expandPerson(person.id)" v-else-if="person"
+          <v-img @click="expandPerson(person.id)" v-else-if="!isLoading && person"
             :src="placeholderImage"
           >
             <span class="headline">{{person.name}}</span>
@@ -60,12 +60,12 @@
         <v-layout column style="overflow: scroll; max-height: 220px;">
           <v-flex v-for="(spouse, index) in spouses" :key="index">
             <v-card>
-              <v-img @click="changePeople(spouse.id)" v-if="spouse && spouse.photo"
+              <v-img @click="changePeople(spouse.id)" v-if="!isLoading && spouse && spouse.photo"
                 :src="spouse.photo"
               >
                 <span class="headline">{{spouse.name}}</span>
               </v-img>
-              <v-img @click="changePeople(spouse.id)" v-else-if="spouse"
+              <v-img @click="changePeople(spouse.id)" v-else-if="!isLoading && spouse"
                 :src="placeholderImage"
               >
                 <span class="headline">{{spouse.name}}</span>
@@ -81,12 +81,12 @@
     <v-layout row wrap align-center justify-center fill-height>
       <v-flex xs5 sm2 v-for="(children, index) in child" :key="index">
         <v-card>
-          <v-img @click="changePeople(children.id)" v-if="children && children.photo"
+          <v-img @click="changePeople(children.id)" v-if="!isLoading && children && children.photo"
               :src="children.photo"
           >
             <span class="headline">{{children.name}}</span>
           </v-img>
-          <v-img @click="changePeople(children.id)" v-else-if="children"
+          <v-img @click="changePeople(children.id)" v-else-if="!isLoading && children"
               :src="placeholderImage"
           >
             <span class="headline">{{children.name}}</span>
@@ -110,6 +110,9 @@ export default {
     }
   },
   computed: {
+    isLoading () {
+      return this.$store.state.personLoading
+    },
     child () {
       if (!this.person) return []
       if (this.person.sex) return this.person.fatherChild
@@ -133,6 +136,7 @@ export default {
   },
   methods: {
     changePeople (id) {
+      if (this.isLoading) return
       return this.$store.dispatch('getPerson', { id })
     },
     expandPerson (id) {
