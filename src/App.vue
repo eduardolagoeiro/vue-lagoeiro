@@ -39,7 +39,6 @@ export default {
   name: 'App',
   data () {
     return {
-      defaultId: 1,
       drawer: null
     }
   }

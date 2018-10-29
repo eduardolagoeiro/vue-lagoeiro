@@ -13,7 +13,7 @@
       label="Quem você está procurando?"
       no-data-text="Digite o nome de quem você procura"
     ></v-autocomplete>
-    <Person v-if="select" />
+    <Person v-if="select && person.id" :person="person"/>
   </div>
 </template>
 
@@ -23,7 +23,6 @@ import Person from '../components/Person.vue'
 export default {
   data () {
     return {
-      id: this.$route.params.id,
       select: null,
       search: null
     }
@@ -37,15 +36,26 @@ export default {
     },
     people () {
       return this.$store.state.people
+    },
+    id () {
+      return this.$route.query.id
     }
   },
   methods: {
-    selectPerson (personId) {
-      return this.$store.dispatch('getPerson', { id: personId })
+    selectPerson (id) {
+      return this.$store.dispatch('getPerson', { id })
     }
   },
   watch: {
+    id (val) {
+      this.selectPerson(val)
+    },
     person (val) {
+      this.$router.push({
+        path: '/people',
+        name: 'people',
+        query: { id: val.id }
+      })
       this.select = val
     },
     search (val) {
