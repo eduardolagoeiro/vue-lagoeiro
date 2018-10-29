@@ -13,7 +13,7 @@
       label="Quem você está procurando?"
       no-data-text="Digite o nome de quem você procura"
     ></v-autocomplete>
-    <Person v-if="select && person.id" :person="person"/>
+    <Person v-if="select && person && person.id" :person="person"/>
   </div>
 </template>
 
@@ -51,6 +51,7 @@ export default {
       this.selectPerson(val)
     },
     person (val) {
+      if (!val) return
       this.$router.push({
         path: '/people',
         name: 'people',
