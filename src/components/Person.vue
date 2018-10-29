@@ -16,7 +16,6 @@
           <v-img v-else
             :src="placeholderImage"
           />
-
         </v-card>
       </v-flex>
       <v-flex xs6 sm3>
