@@ -41,6 +41,16 @@ export default {
     return {
       drawer: null
     }
+  },
+  computed: {
+    personId () {
+      return this.$route.query.id
+    }
+  },
+  watch: {
+    personId (id) {
+      this.$store.dispatch('getPerson', { id })
+    }
   }
 }
 </script>

@@ -143,7 +143,11 @@ export default {
       })
     },
     expandPerson (id) {
-      console.log('expand person', id)
+      this.$router.push({
+        path: '/person',
+        name: 'person',
+        query: { id }
+      })
     }
   }
 }

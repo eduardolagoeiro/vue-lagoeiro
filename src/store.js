@@ -24,7 +24,7 @@ export default new Vuex.Store({
   actions: {
     getPerson (ctx, payload) {
       if (ctx.state.personLoading) return
-      if (!payload || !payload.id) return ctx.commit('CHANGE_PERSON', {})
+      if (!payload || !payload.id) return
       ctx.commit('CHANGE_PERSON_LOADING')
       return PeopleService.fetch(payload.id, {
         filter: {

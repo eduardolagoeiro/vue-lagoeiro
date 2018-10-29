@@ -36,32 +36,29 @@ export default {
     },
     people () {
       return this.$store.state.people
-    },
-    id () {
-      return this.$route.query.id
     }
   },
   methods: {
     selectPerson (id) {
-      return this.$store.dispatch('getPerson', { id })
-    }
-  },
-  watch: {
-    id (val) {
-      this.selectPerson(val)
-    },
-    person (val) {
-      if (!val) return
       this.$router.push({
         path: '/people',
         name: 'people',
-        query: { id: val.id }
+        query: { id }
       })
+    }
+  },
+  watch: {
+    person (val) {
       this.select = val
     },
     search (val) {
       if (this.people && this.people.length > 0) return
       this.$store.dispatch('getPeopleName', {})
+    }
+  },
+  mounted () {
+    if (this.person) {
+      this.select = this.person
     }
   },
   components: {
