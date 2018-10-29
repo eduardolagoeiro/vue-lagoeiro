@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer">
+      <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer">
       </v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
         <span class="font-weight-light">Família Lagoeiro</span>
