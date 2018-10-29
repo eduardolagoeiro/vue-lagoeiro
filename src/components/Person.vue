@@ -103,7 +103,6 @@
 <script>
 import placeholderImage from '../assets/placeholder_image.gif'
 export default {
-  props: ['person'],
   data () {
     return {
       placeholderImage
@@ -117,6 +116,9 @@ export default {
       if (!this.person) return []
       if (this.person.sex) return this.person.fatherChild
       return this.person.motherChild
+    },
+    person () {
+      return this.$store.state.person
     },
     spouses () {
       if (!this.person) return []
@@ -140,7 +142,7 @@ export default {
       return this.$store.dispatch('getPerson', { id })
     },
     expandPerson (id) {
-      console.log('exapnd person', id)
+      console.log('expand person', id)
     }
   }
 }

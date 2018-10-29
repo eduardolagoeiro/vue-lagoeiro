@@ -13,7 +13,6 @@ export default new Vuex.Store({
   mutations: {
     CHANGE_PERSON (state, payload) {
       state.person = payload
-      state.personLoading = false
     },
     CHANGE_PEOPLE (state, payload) {
       state.people = payload
@@ -39,7 +38,10 @@ export default new Vuex.Store({
           }]
         }
       })
-        .then(res => ctx.commit('CHANGE_PERSON', res.data))
+        .then(res => {
+          ctx.commit('CHANGE_PERSON', res.data)
+          ctx.commit('CHANGE_PERSON_LOADING')
+        })
         .catch(err => console.log(err))
     },
     getPeopleName (ctx, payload) {

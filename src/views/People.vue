@@ -13,7 +13,7 @@
       label="Quem você está procurando?"
       no-data-text="Digite o nome de quem você procura"
     ></v-autocomplete>
-    <Person v-if="select" :person="person" />
+    <Person v-if="select" />
   </div>
 </template>
 
@@ -45,6 +45,9 @@ export default {
     }
   },
   watch: {
+    person (val) {
+      this.select = val
+    },
     search (val) {
       if (this.people && this.people.length > 0) return
       this.$store.dispatch('getPeopleName', {})
