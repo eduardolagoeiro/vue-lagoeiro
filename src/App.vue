@@ -51,5 +51,6 @@ export default {
     width: 100%;
     padding: 2.5em 0;
     margin: 0;
+    border-bottom: 1px solid lightgray;
   }
 </style>
