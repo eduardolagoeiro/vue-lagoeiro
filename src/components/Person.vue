@@ -146,7 +146,7 @@ export default {
       this.$router.push({
         path: '/person',
         name: 'person',
-        query: { id }
+        params: { id }
       })
     }
   }
