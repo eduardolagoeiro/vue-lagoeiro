@@ -18,6 +18,16 @@ export default new Router({
       path: '/people',
       name: 'people',
       component: People
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: Home
+    },
+    {
+      path: '/curiosity',
+      name: 'curiosity',
+      component: Home
     }
   ]
 })
