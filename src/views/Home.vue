@@ -1,14 +1,14 @@
 <template>
   <v-container grid-list-md>
     <v-layout row wrap justify-center align-center>
-      <v-flex d-block xs8 sm4 lg2>
+      <v-flex xs8 sm4 md3>
         <v-img :src="familyIcon" contain></v-img>
       </v-flex>
-      <v-flex d-block xs12>
-        <h1 primary class="pb-3 justify-center text-xs-center">Bem-vindo ao site da Família lagoeiro</h1>
-        <p class="text-xs-justify">{{lorem.substring(0, 100)}}</p>
+      <v-flex xs12 sm6 md5>
+        <h1 primary class="pb-3 justify-center text-xs-center">Bem-vindo à Família Lagoeiro</h1>
+        <p class="text-xs-center">{{lorem.substring(0, 100)}}</p>
       </v-flex>
-      <v-flex d-block xs12>
+      <v-flex xs12 sm10 md8>
         <div>
           <h2 class="justify-center text-xs-center">Pesquisa e Motivação</h2>
           <v-subheader class="justify-center">por:<i>Claudio Lagoeiro</i>
