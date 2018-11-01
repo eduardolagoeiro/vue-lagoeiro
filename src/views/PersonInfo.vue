@@ -1,26 +1,46 @@
 <template>
   <v-container grid-list-xl>
-    <v-carousel
-      height="300px"
-      width="400px">
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.src"
-        cycle="false"
-      ></v-carousel-item>
-    </v-carousel>
-    <h2>{{person.name}}, {{calculateAge()}}</h2>
     <v-layout justify-center align-center row wrap>
-      <v-flex d-inline-flex xs6 class="text-xs-center align-center">
-        <v-icon medium>fa-birthday-cake</v-icon>
-        <div class="text-xs-left">{{person.birthday | dateFilter}}</div>
+      <v-flex xs12 sm6>
+        <v-carousel
+          height="300px"
+          width="400px">
+          <v-carousel-item
+            v-for="(item,i) in items"
+            :key="i"
+            :src="item.src"
+            cycle="false"
+          ></v-carousel-item>
+        </v-carousel>
       </v-flex>
-      <v-flex d-inline-flex xs6 class="text-xs-center align-center">
-        <v-icon medium>fa-heart</v-icon>
-        <div class="text-xs-left">{{person.birthday | dateFilter}}</div>
+      <v-flex xs12 sm4 >
+        <v-flex d-block xs12 class="text-sm-center">
+          <h2>{{person.name}}, {{calculateAge()}} anos</h2>
+        </v-flex>
+        <v-layout row wrap justify-center>
+          <v-flex d-inline-flex xs6 sm10 class="text-xs-center text-sm-right align-center">
+            <div class="pr-1">
+              <v-icon medium>fa-birthday-cake</v-icon>
+            </div>
+            <div class="text-xs-left">{{person.birthday | dateFilter}}</div>
+          </v-flex>
+          <v-flex d-inline-flex xs6 sm10 class="text-xs-center text-sm-right align-center">
+            <div class="pr-1">
+              <v-icon medium>fa-heart</v-icon>
+            </div>
+            <div class="text-xs-left">{{person.birthday | dateFilter}}</div>
+          </v-flex>
+          <v-flex d-inline-flex xs6 sm10 class="text-xs-center text-sm-right align-center">
+            <div class="pr-1">
+              <v-icon medium>fa-child</v-icon>
+            </div>
+            <div class="text-xs-left">{{child.length}}
+              <span class="hidden-sm-and-down"> filhos</span>
+            </div>
+          </v-flex>
+        </v-layout>
       </v-flex>
-      <v-flex>
+      <v-flex xs12 sm10>
         <h3 class="pb-3">Sobre</h3>
         <p class="text-xs-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -46,6 +66,11 @@ export default {
   computed: {
     person () {
       return this.$store.state.person
+    },
+    child () {
+      if (!this.person) return []
+      if (this.person.sex) return this.person.fatherChild
+      return this.person.motherChild
     }
   },
   filters: {
