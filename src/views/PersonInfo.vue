@@ -12,13 +12,13 @@
     </v-carousel>
     <h2>{{person.name}}, {{calculateAge()}}</h2>
     <v-layout justify-center align-center row wrap>
-      <v-flex d-inline-flex xs6>
-        <v-icon>favorite</v-icon>
-        <p class="pa-0 ma-0">{{person.birthday | dateFilter}}</p>
+      <v-flex d-inline-flex xs6 class="text-xs-center align-center">
+        <v-icon medium>fa-birthday-cake</v-icon>
+        <div class="text-xs-left">{{person.birthday | dateFilter}}</div>
       </v-flex>
-      <v-flex d-inline-flex xs6>
-        <v-icon>favorite_border</v-icon>
-        <p class="pa-0 ma-0">{{person.birthday | dateFilter}}</p>
+      <v-flex d-inline-flex xs6 class="text-xs-center align-center">
+        <v-icon medium>fa-heart</v-icon>
+        <div class="text-xs-left">{{person.birthday | dateFilter}}</div>
       </v-flex>
       <v-flex>
         <h3 class="pb-3">Sobre</h3>
