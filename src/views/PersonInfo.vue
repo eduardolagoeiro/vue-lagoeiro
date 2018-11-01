@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl>
     <v-layout justify-center align-center row wrap>
-      <v-flex xs12 sm6>
+      <v-flex xs12 sm6 lg5>
         <v-carousel
           height="300px"
           width="400px">
@@ -13,7 +13,7 @@
           ></v-carousel-item>
         </v-carousel>
       </v-flex>
-      <v-flex xs12 sm4 >
+      <v-flex xs12 sm4 lg3>
         <v-flex d-block xs12 class="text-sm-center">
           <h2>{{person.name}}, {{calculateAge()}} anos</h2>
         </v-flex>
@@ -40,7 +40,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex xs12 sm10>
+      <v-flex xs12 sm10 lg8>
         <h3 class="pb-3">Sobre</h3>
         <p class="text-xs-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
