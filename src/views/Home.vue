@@ -40,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .text-xs-justify {
+    text-indent: 2em;
+  }
+</style>
